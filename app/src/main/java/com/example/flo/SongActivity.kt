@@ -1,5 +1,7 @@
 package com.example.flo
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
@@ -16,6 +18,10 @@ class SongActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.SongplayerHeaderBtnDownIv.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("title", binding.SongplayerTitleTv.text.toString())
+
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
 

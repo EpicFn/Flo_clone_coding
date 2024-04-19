@@ -1,6 +1,7 @@
 package com.example.flo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,12 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
+
+        binding.albumMusicTitleTv.text = arguments?.getString("title")
+        binding.albumArtistNameTv.text = arguments?.getString("artist")
+        binding.albumMusicMetaInfoTv.text = arguments?.getString("metaInfo")
+
+
 
         binding.albumBackIv.setOnClickListener{
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()

@@ -1,14 +1,30 @@
 package com.example.flo
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.flo.databinding.ActivityMainBinding
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    private val getResultText = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){result ->
+        if(result.resultCode == Activity.RESULT_OK){
+            val resultString = result.data?.getStringExtra("title").toString()
+
+            Toast.makeText(this, resultString, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("artist", song.artist)
-            startActivity(intent)
+
+            getResultText.launch(intent)
         }
         initBottomNavigation()
 

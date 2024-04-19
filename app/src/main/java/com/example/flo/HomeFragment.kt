@@ -1,6 +1,7 @@
 package com.example.flo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,18 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homeTodayMusicAlbum1.setOnClickListener{
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, AlbumFragment()).commitAllowingStateLoss()
+            val albumFragment = AlbumFragment()
+            val bundle = Bundle()
+
+            bundle.apply {
+                this.putString("title", "1st Album - Alexis King")
+                this.putString("artist", "Alexis King")
+                this.putString("metaInfo", "2021.03.25 | 정규 | 해외 팝")
+            }
+            albumFragment.arguments = bundle
+
+
+            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, albumFragment).commitAllowingStateLoss()
         }
 
         return binding.root
