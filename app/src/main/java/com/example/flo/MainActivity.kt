@@ -45,12 +45,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //bottom navigation 설정을 별도 함수로 구현
     private fun initBottomNavigation(){
 
+        //앱 초기화 시 메인 화면을 homeFragment로 설정
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, HomeFragment())
             .commitAllowingStateLoss()
 
+
+        //main의 bottom navigation의 eventlistenr 설정
         binding.mainBnv.setOnItemSelectedListener{ item ->
             when (item.itemId) {
 
