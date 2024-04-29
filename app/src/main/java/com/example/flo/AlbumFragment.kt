@@ -26,7 +26,6 @@ class AlbumFragment : Fragment() {
         binding.albumArtistNameTv.text = arguments?.getString("artist")
         binding.albumMusicMetaInfoTv.text = arguments?.getString("metaInfo")
 
-
         binding.albumBackIv.setOnClickListener{
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
         }

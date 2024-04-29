@@ -14,12 +14,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+
+    //Song-activity result를 handling 하는 함수
     private val getResultText = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ){result ->
-        if(result.resultCode == Activity.RESULT_OK){
+        if(result.resultCode == Activity.RESULT_OK){//result가 있는 경우
             val resultString = result.data?.getStringExtra("title").toString()
-
+            //Toast 메세지 출력
             Toast.makeText(this, resultString, Toast.LENGTH_SHORT).show();
         }
 
@@ -33,11 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         val song = Song(binding.homeMiniPlayerTitleTv.text.toString(), binding.homeMiniPlayerArtistTv.text.toString())
 
+        //미니플레이어에 이벤트리스너 연결
+        //result를 받는 형태로 호출
         binding.mainPlayerCl.setOnClickListener{
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("artist", song.artist)
 
+            //result를 받는 형태로 intent를 보내면서 activity 호출
             getResultText.launch(intent)
         }
         initBottomNavigation()

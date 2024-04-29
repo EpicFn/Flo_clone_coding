@@ -241,7 +241,11 @@
         android:src="@drawable/nugu_btn_repeat_inactive"
         app:layout_constraintBottom_toBottomOf="@+id/song_player_layout"
         app:layout_constraintEnd_toStartOf="@+id/song_player_layout"
-        app:layout_constraintTop_toTopOf="@+id/song_player_layout" />
+        app:layout_constraintTop_toTopOf="@+id/song_player_layout"
+
+        app:tint="#80000000"
+        android:tintMode="src_atop"
+        />
 
     <ImageView
         android:id="@+id/song_random_iv"

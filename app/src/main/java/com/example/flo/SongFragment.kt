@@ -18,6 +18,27 @@ class SongFragment : Fragment() {
     ): View? {
         binding = FragmentSongBinding.inflate(inflater, container, false)
 
+        //내취향 버튼 이벤트리스너 연결
+        binding.songMixoffTg.setOnClickListener{
+            setPlayerStatus(false)
+        }
+        binding.songMixonTg.setOnClickListener{
+            setPlayerStatus(true)
+        }
+
+
         return binding.root
+    }
+
+    //내취향 버튼 클릭 시 실행하는 이미지 전환 함수
+    private fun setPlayerStatus(isPlaying : Boolean){
+        if(isPlaying){
+            binding.songMixoffTg.visibility = View.VISIBLE
+            binding.songMixonTg.visibility = View.GONE
+        }
+        else{
+            binding.songMixonTg.visibility = View.VISIBLE
+            binding.songMixoffTg.visibility = View.GONE
+        }
     }
 }
