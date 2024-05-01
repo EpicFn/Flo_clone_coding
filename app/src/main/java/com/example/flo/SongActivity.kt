@@ -19,7 +19,7 @@ class SongActivity : AppCompatActivity() {
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //
+
         binding.SongplayerHeaderBtnDownIv.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("title", binding.SongplayerTitleTv.text.toString())

@@ -18,7 +18,7 @@ class BannerVPApater(fragment:Fragment) :FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment = fragmentlist[position] //list의 값을 하나씩 반환
 
     //fragmentList 초기화용 함수
-    fun addFragemenbt(fragment: Fragment){
+    fun addFragment(fragment: Fragment){
         fragmentlist.add(fragment)
         notifyItemInserted(fragmentlist.size-1) //item의 개수를 알려주는 method
     }
