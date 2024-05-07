@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.flo.databinding.FragmentPanelBinding
 
-class PanelFragment : Fragment() {
+class PanelFragment(val imgRes : Int, val pharse : String) : Fragment() {
     lateinit var binding : FragmentPanelBinding
 
     override fun onCreateView(
@@ -16,8 +16,8 @@ class PanelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPanelBinding.inflate(inflater, container, false)
-
-
+        binding.homePanelBackgroundIv.setImageResource(imgRes)
+        binding.homePanelPharseTv.text = pharse
 
         return binding.root
     }

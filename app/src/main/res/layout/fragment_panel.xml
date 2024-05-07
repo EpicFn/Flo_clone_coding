@@ -29,42 +29,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp"
 
-
-
             />
 
-        <ImageView
-            android:id="@+id/home_btn_setting_iv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-
-            android:src="@drawable/btn_main_setting"
-
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="10dp" />
-
-                    <ImageView
-                        android:id="@+id/home_btn_ticket_iv"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-
-                        android:src="@drawable/btn_main_ticket"
-
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/home_btn_setting_iv"
-                        android:layout_marginTop="10dp" />
-
-                    <ImageView
-                        android:id="@+id/home_btn_mike_iv"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-
-                        android:src="@drawable/btn_main_mike"
-
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/home_btn_ticket_iv"
-                        android:layout_marginTop="10dp" />
 
                     <TextView
                         android:id="@+id/home_panel_pharse_tv"
@@ -74,7 +40,7 @@
                         android:layout_marginEnd="100dp"
                         android:layout_marginStart="10dp"
 
-                        android:text="포근하게 덮어주는 꿈의 \n목소리"
+                        android:text="default"
                         android:textColor="@color/white"
                         android:textSize="30sp"
 

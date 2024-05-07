@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FLO</string>
+    <string name="panel_pharse_default">포근하게 덮어주는 꿈의 \n목소리</string>
+    <string name="panel_pharse_1">콘서트의 감동을 \n손 안에서</string>
+    <string name="panel_pharse_2">꽃샘추위를 달래는 \n감성 음악</string>
+    <string name="panel_pharse_3">인기 J-POP 100선</string>
 </resources>
