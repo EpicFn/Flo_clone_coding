@@ -81,7 +81,8 @@ class SongActivity : AppCompatActivity() {
         binding.SongplayerArtistTv.text = intent.getStringExtra("artist")
         binding.songStartTimeTv.text = String.format("%02d:%02d", song.second / 60, song.second % 60)
         binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
-        binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
+        //binding.songProgressSb.progress = (song.second * 1000 / song.playTime + song.second * 1000)
+        binding.songProgressSb.progress = (song.second*100000)/song.playTime
 
         //string으로 resource를 지정해서 music에 저장
         //mediaplayer가 재생할 음악 resource를 지정
@@ -136,7 +137,7 @@ class SongActivity : AppCompatActivity() {
     //inner class로 생성하면 외부 class의 값에 접근이 가능하다
     inner class Timer(private val playTime : Int, var isPlaying: Boolean = true):Thread(){
 
-        private var second : Int = 0
+        private var second : Int = song.second
         private var mills : Float = 0f
 
         override fun run() {
@@ -144,6 +145,7 @@ class SongActivity : AppCompatActivity() {
             try{
                 while(true){
                     if(second >= playTime){ // 음악이 종료되면 루프 탈출
+                        song.second = second
                         break;
                     }
 
@@ -152,7 +154,7 @@ class SongActivity : AppCompatActivity() {
                         mills += 50
 
                         runOnUiThread {//progress 바 갱신
-                            binding.songProgressSb.progress = ((mills/ playTime)*100).toInt()
+                            binding.songProgressSb.progress = ((mills/ playTime)*100).toInt() + second * 1000
                         }
                         if(mills % 1000 == 0f){//시간 count 갱신
                             runOnUiThread {

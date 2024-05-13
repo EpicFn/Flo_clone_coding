@@ -88,6 +88,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     //bottom navigation 설정을 별도 함수로 구현
     private fun initBottomNavigation(){
 
