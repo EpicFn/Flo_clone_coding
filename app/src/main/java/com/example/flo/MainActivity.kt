@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val song = Song(binding.homeMiniPlayerTitleTv.text.toString(), binding.homeMiniPlayerArtistTv.text.toString())
+        val song = Song(binding.homeMiniPlayerTitleTv.text.toString(), binding.homeMiniPlayerArtistTv.text.toString(), 0, 60, false)
 
         //미니플레이어에 이벤트리스너 연결
         //result를 받는 형태로 호출
@@ -41,6 +41,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("artist", song.artist)
+            intent.putExtra("second", song.second)
+            intent.putExtra("playtime", song.playTime)
+            intent.putExtra("isplaying", song.isPlaying)
 
             //result를 받는 형태로 intent를 보내면서 activity 호출
             getResultText.launch(intent)
