@@ -47,6 +47,13 @@ class SongActivity : AppCompatActivity() {
         binding.songPauseIv.setOnClickListener{
             setPlayerStatus(false)
         }
+
+        //한곡재생 버튼 클릭시 음악 재시작
+        binding.songRepeatIv.setOnClickListener{
+            timer.interrupt()
+            resetPlayer(song)
+            startTimer()
+        }
     }
 
     //activity가 focus를 잃었을 때 음악 중지
@@ -89,8 +96,21 @@ class SongActivity : AppCompatActivity() {
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         mediaPlayer = MediaPlayer.create(this, music)
 
+        mediaPlayer?.seekTo(song.second * 1000) //음악 시작 시 중단했던 지점으로 이동
+
         setPlayerStatus(song.isPlaying)
     }
+
+    //음악 재시작 시 data 초기화
+    private fun resetPlayer(song:Song){
+        song.second = 0
+        binding.songStartTimeTv.text = String.format("%02d:%02d", song.second / 60, song.second % 60)
+        binding.songProgressSb.progress = (song.second*100000)/song.playTime
+        mediaPlayer?.seekTo(0)
+
+        setPlayerStatus(song.isPlaying)
+    }
+
 
     //intent로 받은 data를 song 객체에 저장
     private fun initSong(){
@@ -131,6 +151,7 @@ class SongActivity : AppCompatActivity() {
     private fun startTimer(){
         timer = Timer(song.playTime, song.isPlaying)
         timer.start()
+
     }
 
     //progress 측정을 위한 thread 용 내부 class
@@ -139,6 +160,7 @@ class SongActivity : AppCompatActivity() {
 
         private var second : Int = song.second
         private var mills : Float = 0f
+        
 
         override fun run() {
             super.run()
