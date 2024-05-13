@@ -43,9 +43,11 @@ class SongActivity : AppCompatActivity() {
         binding.songPauseIv.setOnClickListener{
             setPlayerStatus(false)
         }
+    }
 
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.interrupt()
     }
 
 
