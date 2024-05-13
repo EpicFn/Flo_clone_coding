@@ -20,4 +20,12 @@
         <item name="android:windowTranslucentStatus">true</item>
 
     </style>
+    <!--splash screen theme -->
+    <style name="SplashTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.FLO</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+    </style>
 </resources>

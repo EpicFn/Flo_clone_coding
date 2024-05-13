@@ -4,15 +4,21 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.flo.databinding.ActivityMainBinding
+import com.google.gson.Gson
 import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    private var song:Song = Song()
+    private val gson:Gson = Gson()
 
 
     //Song-activity result를 handling 하는 함수
@@ -30,10 +36,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val song = Song(binding.homeMiniPlayerTitleTv.text.toString(), binding.homeMiniPlayerArtistTv.text.toString(), 0, 60, false)
+
 
         //미니플레이어에 이벤트리스너 연결
         //result를 받는 형태로 호출
@@ -44,12 +53,38 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("second", song.second)
             intent.putExtra("playtime", song.playTime)
             intent.putExtra("isplaying", song.isPlaying)
+            intent.putExtra("music", song.music)
 
             //result를 받는 형태로 intent를 보내면서 activity 호출
             getResultText.launch(intent)
         }
         initBottomNavigation()
 
+
+    }
+
+    //miniplayer를 설정하는 함수
+    private fun setMiniPlayer(song:Song){
+        binding.mainMiniPlayerTitleTv.text = song.title
+        binding.mainMiniPlayerArtistTv.text = song.artist
+        binding.mainProgressSb.progress = (song.second*100000)/song.playTime
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        //sharedPreference에서 실행되던 song data 받아오기
+        //받아온 값을 song 객체로 변환
+        val sharedPreferneces = getSharedPreferences("song", MODE_PRIVATE)
+        val songJson = sharedPreferneces.getString("songData", null)
+
+        song = if(songJson == null){
+            Song("Surrender", "Alexis King", 0, 60, false, "sample_music_1")
+        } else {
+            gson.fromJson(songJson, Song::class.java)
+        }
+
+        setMiniPlayer(song)
 
     }
 
