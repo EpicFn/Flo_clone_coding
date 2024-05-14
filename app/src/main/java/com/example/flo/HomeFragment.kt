@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.flo.databinding.FragmentHomeBinding
 import me.relex.circleindicator.CircleIndicator3
@@ -15,6 +17,8 @@ import me.relex.circleindicator.CircleIndicator3
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
+    private val albumDatas = ArrayList<Album>() //album 데이터를 담는 list
+
     var panelPosition = 0; //panel viewpager 자동 슬라이드를 위한 변수
 
     //panel 자동 슬라이드 구현 : 핸들러 설정
@@ -31,24 +35,40 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.homeTodayMusicAlbum1.setOnClickListener{
-            val albumFragment = AlbumFragment()
-            val bundle = Bundle()
+//        binding.homeTodayMusicAlbum1.setOnClickListener{
+//            val albumFragment = AlbumFragment()
+//            val bundle = Bundle()
+//
+//            //fragment간 정보 전달 방법
+//            //bundle 형태로 데이터 입력
+//            bundle.apply {
+//                this.putString("title", "1st Album - Alexis King")
+//                this.putString("artist", "Alexis King")
+//                this.putString("metaInfo", "2021.03.25 | 정규 | 해외 팝")
+//            }
+//
+//            //생성한 fragment에 argument로 등록
+//            albumFragment.arguments = bundle
+//
+//            //fragment 전환할 때, 생성한 fragment로 전환해줘야 한다
+//            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, albumFragment).commitAllowingStateLoss()
+//        }
 
-            //fragment간 정보 전달 방법
-            //bundle 형태로 데이터 입력
-            bundle.apply {
-                this.putString("title", "1st Album - Alexis King")
-                this.putString("artist", "Alexis King")
-                this.putString("metaInfo", "2021.03.25 | 정규 | 해외 팝")
-            }
-
-            //생성한 fragment에 argument로 등록
-            albumFragment.arguments = bundle
-
-            //fragment 전환할 때, 생성한 fragment로 전환해줘야 한다
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, albumFragment).commitAllowingStateLoss()
+        // 데이터 리스트용 더미 데이터
+        albumDatas.apply{
+            add(Album("Surrender", "Alexis King", R.drawable.img_home_album))
+            add(Album("Lilac", "IU", R.drawable.img_album_exp2))
+            add(Album("Butter", "BTS", R.drawable.img_album_exp))
+            add(Album("Closer", "The ChainSmokers", R.drawable.img_album_exp3))
+            add(Album("Lost starts", "Adam Levine", R.drawable.img_album_exp4))
         }
+
+        val albumRVAdapter = AlbumRVAdapter(albumDatas) //adapter와 data list 연결
+        binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter //recycler view에 adapter 연결
+        binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) //recycler view에 layout manager 연결
+
+
+
 
         //baner viewpager 설정
         //bannerAdapter 초기화, fragment 추가

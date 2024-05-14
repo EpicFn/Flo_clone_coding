@@ -144,104 +144,16 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/home_todayMusic_albums"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_todayMusic_album_rv"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
 
+                tools:listitem="@layout/item_album"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/home_todayMusic_header">
+            /> <!-- 위 세줄은 미리 UI를 볼수 있게 해주는 코드. 실제 연동은 아님-->
 
-                <LinearLayout
-                    android:id="@+id/home_todayMusic_album_1"
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_marginHorizontal="15dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/home_todayMusic_album_1_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:src="@drawable/img_home_album" />
-
-                    <TextView
-                        android:id="@+id/home_todayMusic_album_1_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:text="Surrender"
-                        android:textColor="@color/black"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/home_todayMusic_album_1_artist"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:text="Alexis king"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/home_todayMusic_album_2"
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_marginHorizontal="15dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/home_todayMusic_album_2_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:src="@drawable/img_home_album" />
-
-                    <TextView
-                        android:id="@+id/home_todayMusic_album_2_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:text="제목"
-                        android:textColor="@color/black"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/home_todayMusic_album_2_artist"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:text="가수"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/home_todayMusic_album_3"
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_marginHorizontal="15dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/home_todayMusic_album_3_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:src="@drawable/img_home_album" />
-
-                    <TextView
-                        android:id="@+id/home_todayMusic_album_3_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:text="제목"
-                        android:textColor="@color/black"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/home_todayMusic_album_3_artist"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:text="가수"
-                        android:textSize="18dp" />
-                </LinearLayout>
-            </LinearLayout>
 
 
 
