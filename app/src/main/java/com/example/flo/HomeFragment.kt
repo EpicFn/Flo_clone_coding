@@ -27,6 +27,18 @@ class HomeFragment : Fragment() {
         true
     }
 
+    //MainActivity의 function을 실행시키기 위한 interface
+    //MiniPlayer 조작에 사용
+    interface SongSetter{
+        fun setSongWithAlbum(selectedAlbum : Album)
+    }
+
+    private lateinit var mySongSetter: SongSetter
+    fun setSongSetter(songSetter: SongSetter){
+        mySongSetter = songSetter
+    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,6 +87,16 @@ class HomeFragment : Fragment() {
                 (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, albumFragment).commitAllowingStateLoss()
 
             }
+
+            override fun onPlayBtnClick(albumIdx: Int) {
+                //miniplayer 변경 코드
+                //MainActivity의 setSongWithAlbum 함수를 호출한다
+                mySongSetter.setSongWithAlbum(albumDatas[albumIdx])
+                Log.d("play btn click", albumDatas[albumIdx].title!!)
+
+            }
+
+
         })
 
 

@@ -15,6 +15,10 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
         //recycler view에 click listener가 없기 때문에 정의해준다
         //album data를 받기 위해 매개변수 사용
         fun onItemClick(album: Album)
+
+        //play btn 클릭 시 MiniPlayer 동기화
+        //클릭된 album의 idx를 반환해준다
+        fun onPlayBtnClick(albumIdx : Int)
     }
 
     //interface 객체 선언
@@ -44,6 +48,9 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
         //itemView에 eventListener 연결
         //evetn Listener 객체는 homeFragment에서 가져온다
         p0.itemView.setOnClickListener{myItemClickListener.onItemClick(albumList[p1])}
+
+        //play button에 eventListener 연결
+        p0.binding.itemAlbumPlayImgIv.setOnClickListener{myItemClickListener.onPlayBtnClick(p1)}
     }
 
 

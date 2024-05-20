@@ -87,6 +87,7 @@ class SongActivity : AppCompatActivity() {
         binding.SongplayerTitleTv.text = intent.getStringExtra("title")
         binding.SongplayerArtistTv.text = intent.getStringExtra("artist")
         binding.songStartTimeTv.text = String.format("%02d:%02d", song.second / 60, song.second % 60)
+        binding.SongplayerAlbumIv.setImageResource(intent.getIntExtra("coverImg", R.drawable.img_unavailable))
         binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
         //binding.songProgressSb.progress = (song.second * 1000 / song.playTime + song.second * 1000)
         binding.songProgressSb.progress = (song.second*100000)/song.playTime
@@ -121,7 +122,8 @@ class SongActivity : AppCompatActivity() {
                 intent.getIntExtra("second", 0),
                 intent.getIntExtra("playtime", 0),
                 intent.getBooleanExtra("isplaying", false),
-                intent.getStringExtra("music")!!
+                intent.getStringExtra("music")!!,
+                intent.getIntExtra("coverImg", R.drawable.img_unavailable)
             )
         }
         startTimer()

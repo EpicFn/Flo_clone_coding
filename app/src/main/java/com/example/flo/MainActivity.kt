@@ -17,21 +17,22 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+
     private var song:Song = Song()
     private val gson:Gson = Gson()
 
 
     //Song-activity result를 handling 하는 함수
-//    private val getResultText = registerForActivityResult(
-//        ActivityResultContracts.StartActivityForResult()
-//    ){result ->
-//        if(result.resultCode == Activity.RESULT_OK){//result가 있는 경우
-//            val resultString = result.data?.getStringExtra("title").toString()
-//            //Toast 메세지 출력
-//            Toast.makeText(this, resultString, Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
+    private val getResultText = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){result ->
+        if(result.resultCode == Activity.RESULT_OK){//result가 있는 경우
+            val resultString = result.data?.getStringExtra("title").toString()
+            //Toast 메세지 출력
+            Toast.makeText(this, resultString, Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("playtime", song.playTime)
             intent.putExtra("isplaying", song.isPlaying)
             intent.putExtra("music", song.music)
+            intent.putExtra("coverImg", song.coverImg)
 
             //result를 받는 형태로 intent를 보내면서 activity 호출
             getResultText.launch(intent)
@@ -70,6 +72,21 @@ class MainActivity : AppCompatActivity() {
         binding.mainProgressSb.progress = (song.second*100000)/song.playTime
     }
 
+    //song 객체를 설정하는 함수
+    //Album의 첫번째 song을 실행시킨다
+    //Album 객체를 parameter로 받는다
+    //progress는 전부 0으로 설정
+    //mini player를 설정한다
+    private fun setSong(selectedAlbum : Album){
+        song = Song(selectedAlbum.title!!,
+            selectedAlbum.artist!!,
+            0, 60, false, "sample_music_1",
+            selectedAlbum.coverImg
+            )
+
+        setMiniPlayer(song)
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -79,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val songJson = sharedPreferneces.getString("songData", null)
 
         song = if(songJson == null){
-            Song("Surrender", "Alexis King", 0, 60, false, "sample_music_1")
+            Song("Surrender", "Alexis King", 0, 60, false, "sample_music_1", R.drawable.img_home_album)
         } else {
             gson.fromJson(songJson, Song::class.java)
         }
@@ -93,19 +110,37 @@ class MainActivity : AppCompatActivity() {
     //bottom navigation 설정을 별도 함수로 구현
     private fun initBottomNavigation(){
 
+        var homeFragment = HomeFragment()
+
+        //songSetter를 설정
+        homeFragment.setSongSetter(object:HomeFragment.SongSetter{
+            override fun setSongWithAlbum(selectedAlbum: Album) {
+                setSong(selectedAlbum)
+            }
+
+        })
+
         //앱 초기화 시 메인 화면을 homeFragment로 설정
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, HomeFragment())
+            .replace(R.id.main_frm, homeFragment)
             .commitAllowingStateLoss()
 
 
         //main의 bottom navigation의 eventlistenr 설정
         binding.mainBnv.setOnItemSelectedListener{ item ->
             when (item.itemId) {
-
                 R.id.homeFragment -> {
+                    homeFragment = HomeFragment()
+
+                    homeFragment.setSongSetter(object:HomeFragment.SongSetter{
+                        override fun setSongWithAlbum(selectedAlbum: Album) {
+                            setSong(selectedAlbum)
+                        }
+
+                    })
+
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, HomeFragment())
+                        .replace(R.id.main_frm, homeFragment)
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
