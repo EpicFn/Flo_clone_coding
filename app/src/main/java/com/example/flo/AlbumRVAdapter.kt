@@ -10,6 +10,20 @@ import com.example.flo.databinding.ItemAlbumBinding
 //album recycular view를 binding 해주는 adapter
 class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRVAdapter.viewHolder>() {
 
+    //eventl listener 설정을 위한 interface 정의
+    interface MyItemClickListener{
+        //recycler view에 click listener가 없기 때문에 정의해준다
+        //album data를 받기 위해 매개변수 사용
+        fun onItemClick(album: Album)
+    }
+
+    //interface 객체 선언
+    //외부(home fragment)에서 eventListener 객체를 전달받아서 저장한다
+    private lateinit var myItemClickListener: MyItemClickListener
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+        myItemClickListener = itemClickListener
+    }
+
     //viewholder를 생성하는 함수
     //초기에만 호출된다
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): AlbumRVAdapter.viewHolder {
@@ -26,6 +40,10 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
         //선택된 position에 item view를 던져준다
         //받아온 item 객체를 itemview 객체에 넣어준다
         p0.bind(albumList[p1])
+
+        //itemView에 eventListener 연결
+        //evetn Listener 객체는 homeFragment에서 가져온다
+        p0.itemView.setOnClickListener{myItemClickListener.onItemClick(albumList[p1])}
     }
 
 

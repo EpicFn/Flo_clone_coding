@@ -35,24 +35,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        binding.homeTodayMusicAlbum1.setOnClickListener{
-//            val albumFragment = AlbumFragment()
-//            val bundle = Bundle()
-//
-//            //fragment간 정보 전달 방법
-//            //bundle 형태로 데이터 입력
-//            bundle.apply {
-//                this.putString("title", "1st Album - Alexis King")
-//                this.putString("artist", "Alexis King")
-//                this.putString("metaInfo", "2021.03.25 | 정규 | 해외 팝")
-//            }
-//
-//            //생성한 fragment에 argument로 등록
-//            albumFragment.arguments = bundle
-//
-//            //fragment 전환할 때, 생성한 fragment로 전환해줘야 한다
-//            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, albumFragment).commitAllowingStateLoss()
-//        }
+
 
         // 데이터 리스트용 더미 데이터
         albumDatas.apply{
@@ -66,6 +49,33 @@ class HomeFragment : Fragment() {
         val albumRVAdapter = AlbumRVAdapter(albumDatas) //adapter와 data list 연결
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter //recycler view에 adapter 연결
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) //recycler view에 layout manager 연결
+
+        //recyclerview의 각 item에 연결한 event Listener를 설정
+        //albumRVAdapter에서 선언된 함수를 호출
+        //interface event listener를 override 하여 eventListener를 생성해서 넘겨준다
+        //click listener를 homeFragment에서만 생성할 수 있기 때문에
+        albumRVAdapter.setMyItemClickListener(object:AlbumRVAdapter.MyItemClickListener{
+            override fun onItemClick(album: Album) {
+                val albumFragment = AlbumFragment()
+                val bundle = Bundle()
+
+                //fragment간 정보 전달 방법
+                //bundle 형태로 데이터 입력
+                bundle.apply {
+                    this.putString("title", album.title)
+                    this.putString("artist", album.artist)
+                    this.putString("metaInfo", "2021.03.25 | 정규 | 해외 팝")
+                    this.putInt("coverImg", album.coverImg!!)
+                }
+
+                //생성한 fragment에 argument로 등록
+                albumFragment.arguments = bundle
+
+                //fragment 전환할 때, 생성한 fragment로 전환해줘야 한다
+                (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, albumFragment).commitAllowingStateLoss()
+
+            }
+        })
 
 
 

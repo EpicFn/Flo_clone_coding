@@ -22,16 +22,16 @@ class MainActivity : AppCompatActivity() {
 
 
     //Song-activity result를 handling 하는 함수
-    private val getResultText = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ){result ->
-        if(result.resultCode == Activity.RESULT_OK){//result가 있는 경우
-            val resultString = result.data?.getStringExtra("title").toString()
-            //Toast 메세지 출력
-            Toast.makeText(this, resultString, Toast.LENGTH_SHORT).show();
-        }
-
-    }
+//    private val getResultText = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()
+//    ){result ->
+//        if(result.resultCode == Activity.RESULT_OK){//result가 있는 경우
+//            val resultString = result.data?.getStringExtra("title").toString()
+//            //Toast 메세지 출력
+//            Toast.makeText(this, resultString, Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
