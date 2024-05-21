@@ -28,7 +28,8 @@ class AlbumFragment : Fragment() {
         binding.albumAlbumIv.setImageResource(arguments?.getInt("coverImg")!!)
 
         binding.albumBackIv.setOnClickListener{
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
+
+            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).addToBackStack(null).commitAllowingStateLoss()
         }
 
         val albumAdapter = AlbumVPAdapter(this)

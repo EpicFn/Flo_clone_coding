@@ -45,6 +45,23 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        //fragment 전환 시 확인
+        supportFragmentManager.addOnBackStackChangedListener {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.main_frm)
+            Log.d("fragment", "변경됨")
+
+            // currentFragment가 HomeFragment인지 확인
+            if (currentFragment is HomeFragment) {
+                currentFragment.setSongSetter(object : HomeFragment.SongSetter{
+                    override fun setSongWithAlbum(selectedAlbum: Album) {
+                        setSong(selectedAlbum)
+                    }
+                })
+            }
+        }
+
+
+
         //미니플레이어에 이벤트리스너 연결
         //result를 받는 형태로 호출
         binding.mainPlayerCl.setOnClickListener{
@@ -103,6 +120,8 @@ class MainActivity : AppCompatActivity() {
 
         setMiniPlayer(song)
 
+
+
     }
 
 
@@ -123,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         //앱 초기화 시 메인 화면을 homeFragment로 설정
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, homeFragment)
+            .addToBackStack(null)
             .commitAllowingStateLoss()
 
 
